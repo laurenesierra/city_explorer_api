@@ -29,15 +29,15 @@ Estimate of time needed to complete: 30
 
 Start time: 4
 
-Finish time: _____
+Finish time: 5
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1 hr
 
-## Number and name of feature: ________________________________
+## Number and name of feature: #2 Locations
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 40 mins
 
-Start time: _____
+Start time: 6:10
 
 Finish time: _____
 

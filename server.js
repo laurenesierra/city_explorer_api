@@ -17,12 +17,23 @@ app.use(cors());
 const PORT = process.env.PORT || 3001;
 
 //routes
-app.get('/' , (request, response) => {
-  response.send('heyyyyy');
-});
+// app.get('/' , (request, response) => {
+//   response.send('heyyyyy');
+// });
 
-app.get('/pet-the-pet', (req, res) => {
-  res.send('about to pet');
+// app.get('/pet-the-pet', (req, res) => {
+//   res.send('about to pet');
+// });
+
+app.get('/location, (req, res') => {
+  res.send({
+
+    "search_query": "seattle",
+    "formatted_query": "Seattle, WA, USA",
+    "latitude": "47.606210",
+    "longitude": "-122.332071"
+
+  });
 });
 
 //start server
