@@ -4,7 +4,7 @@
 const express = require('express');
 
 const cors = require('cors');
-const { response, request } = require('express');
+const { response } = require('express');
 
 require('dotenv').config();
 
@@ -25,9 +25,8 @@ app.get('/location', (request, response) => {
   }
 
   const theDataArrayFromTheLocationJson = require('./data/location.json');
-  console.log(theDataArrayFromTheLocationJson);
   const theDataObjectFromJson = theDataArrayFromTheLocationJson[0];
-  console.log(theDataObjectFromJson);
+
 
   console.log('request.query', request.query);
 

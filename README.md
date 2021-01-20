@@ -57,7 +57,7 @@ Finish time: 4:57
 
 Actual time needed to complete: 7 minutes lol
 
-## Number and name of feature: #2 Location
+## Number and name of feature: #3 Weather
 
 Estimate of time needed to complete: 15
 
@@ -67,3 +67,14 @@ Start time: 5
 Finish time: 5:10
 
 Actual time needed to complete: 10
+
+## Number and name of feature: #1 Data Formatting
+
+Estimate of time needed to complete: 15
+
+Start time: 5:30
+
+
+Finish time: 5:40
+
+Actual time needed to complete: 10 mins
