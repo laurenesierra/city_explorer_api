@@ -56,3 +56,14 @@ Start time: 4:50
 Finish time: 4:57
 
 Actual time needed to complete: 7 minutes lol
+
+## Number and name of feature: #2 Location
+
+Estimate of time needed to complete: 15
+
+Start time: 5
+
+
+Finish time: 5:10
+
+Actual time needed to complete: 10
