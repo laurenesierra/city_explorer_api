@@ -7,6 +7,7 @@ const cors = require('cors');
 const { response } = require('express');
 
 require('dotenv').config();
+const superagent = require('superagent');
 
 
 // app set up
@@ -24,24 +25,40 @@ app.get('/location', (request, response) => {
     return;
   }
 
-  const theDataArrayFromTheLocationJson = require('./data/location.json');
-  const theDataObjectFromJson = theDataArrayFromTheLocationJson[0];
+  // const theDataArrayFromTheLocationJson = require('./data/location.json');
+  // const theDataObjectFromJson = theDataArrayFromTheLocationJson[0];
 
 
-  console.log('request.query', request.query);
 
   const searchedCity = request.query.city;
-
-  const newLocation = new Location(
-    searchedCity,
-    theDataObjectFromJson.display_name,
-    theDataObjectFromJson.lat,
-    theDataObjectFromJson.lon
-  );
-
-  response.send(newLocation);
-
+  const key = process.env.GEOCODE_API_KEY;
+  const url = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${searchedCity}&format=json`;
+  superagent.get(url)
+    .then(result => {
+      // console.log(result.body[0]);
+      const theDataObjectFromJson = result.body[0];
+      const newLocation = new Location(
+        searchedCity,
+        theDataObjectFromJson.display_name,
+        theDataObjectFromJson.lat,
+        theDataObjectFromJson.lon
+      );
+      console.log(newLocation);
+      response.send(newLocation);
+    })
+    .catch(error => {
+      response.status(500).send('locationiq failed');
+      console.log(error.message);
+    });
 });
+
+// const newLocation = new Location(
+//   searchedCity,
+//   theDataObjectFromJson.display_name,
+//   theDataObjectFromJson.lat,
+//   theDataObjectFromJson.lon
+// );
+
 
 app.get('/weather', (request, response) => {
   const theDataArrayFromTheWeatherJson = require('./data/weather.json');
