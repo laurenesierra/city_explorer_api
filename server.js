@@ -18,6 +18,7 @@ app.use(cors());
 const PORT = process.env.PORT || 3001;
 
 //routes
+
 app.get('/location', (request, response) => {
   const theDataArrayFromTheLocationJson = require('./data/location.json');
   console.log(theDataArrayFromTheLocationJson);
@@ -36,6 +37,8 @@ app.get('/location', (request, response) => {
   );
 
   response.send(newLocation);
+
+
 });
 
 
