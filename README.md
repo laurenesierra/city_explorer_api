@@ -16,11 +16,11 @@ As a user, I want to request current weather information so that I can learn mor
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource.
+01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
--->
+
+Chance Harmon
 
 
 ## Number and name of feature: #1 Repository Set Up
@@ -29,16 +29,18 @@ Estimate of time needed to complete: 30
 
 Start time: 4
 
-Finish time: 5
 
-Actual time needed to complete: 1 hr
+Finish time: 4:40
 
-## Number and name of feature: #2 Locations
+Actual time needed to complete: 40
 
-Estimate of time needed to complete: 40 mins
+## Number and name of feature: #2 Location
 
-Start time: 6:10
+Estimate of time needed to complete: 40
 
-Finish time: _____
+Start time: 4:10
 
-Actual time needed to complete: _____
+
+Finish time: 4:30
+
+Actual time needed to complete: 30
