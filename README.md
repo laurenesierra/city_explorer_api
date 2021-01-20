@@ -20,7 +20,8 @@ As a user, I want to request current weather information so that I can learn mor
 
 ## Credits and Collaborations
 
-Chance Harmon
+- Chance Harmon
+- Glenn Clark
 
 
 ## Number and name of feature: #1 Repository Set Up
@@ -44,3 +45,14 @@ Start time: 4:10
 Finish time: 4:30
 
 Actual time needed to complete: 30
+
+## Number and name of feature: #2 Location
+
+Estimate of time needed to complete: 40
+
+Start time: 4:50
+
+
+Finish time: 4:57
+
+Actual time needed to complete: 7 minutes lol
