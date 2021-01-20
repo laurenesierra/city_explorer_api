@@ -19,6 +19,11 @@ const PORT = process.env.PORT || 3001;
 
 //routes
 app.get('/location', (request, response) => {
+  if (request.query.city === '') {
+    response.status(500).send('Please enter a valid city...');
+    return;
+  }
+
   const theDataArrayFromTheLocationJson = require('./data/location.json');
   console.log(theDataArrayFromTheLocationJson);
   const theDataObjectFromJson = theDataArrayFromTheLocationJson[0];
