@@ -14,12 +14,22 @@ const superagent = require('superagent');
 const app = express();
 
 app.use(cors());
+// const DATABASE_URL = process.env.DATABASE_URL;
+// const client = new pg.Client(DATABASE_URL);
+// client.on('error, (error') => console.log(error));
 
 //other global variables
 const PORT = process.env.PORT || 3001;
 
 //routes
 app.get('/location', (request, response) => {
+  // const sqlQuery = "SELECT * FROM location";
+  // client.query(sqlQuery)
+  //   .then(result => {
+  //     console.log(result.Pineapple.Rows);
+  //     response.send(result.Pineapple, rows)
+  //   });
+
   if (request.query.city === '') {
     response.status(500).send('Please enter a valid city...');
     return;
