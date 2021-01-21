@@ -100,3 +100,14 @@ Start time: 7:45
 Finish time: 8:07
 
 Actual time needed to complete: 20 mins
+
+## Number and name of feature: #4 Park API
+
+Estimate of time needed to complete: 15
+
+Start time: 8:15
+
+
+Finish time: 8:45
+
+Actual time needed to complete: 30 mins

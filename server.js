@@ -69,6 +69,25 @@ app.get('/weather', (request, response) => {
     });
 });
 
+app.get('/parks', (request, response) => {
+  const key = process.env.PARKS_API_KEY;
+  const searchedCity = request.query.search_query;
+  const url = `https://developer.nps.gov/api/v1/parks?q=${searchedCity}&api_key=${key}&limit=5`;
+  superagent.get(url)
+    .then(result => {
+      const parkInfo = result.body.data.map(obj => {
+        const newParkObject = new Park(obj);
+        console.log('thing', newParkObject);
+        return newParkObject;
+      });
+      response.send(parkInfo);
+    })
+    .catch(error => {
+      response.status(500).send('parks failed');
+      console.log(error.message);
+    });
+});
+
 //start server
 app.listen(PORT, () => console.log(`we are up on port ${PORT}`));
 
@@ -86,4 +105,10 @@ function Weather(forecast, time) {
   this.time = time;
 }
 
-
+function Park(obj) {
+  this.name = obj.name;
+  this.address = `${obj.addresses[0].line1} ${obj.addresses[0].city}, ${obj.addresses[0].stateCode} ${obj.addresses[0].postalCode}`;
+  this.fee = obj.entranceFees[0].cost;
+  this.description = obj.description;
+  this.url = obj.url;
+}
