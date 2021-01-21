@@ -89,3 +89,14 @@ Start time: 7:00
 Finish time: 7:40
 
 Actual time needed to complete: 30 minutes
+
+## Number and name of feature: #3 Weather API
+
+Estimate of time needed to complete: 30
+
+Start time: 7:45
+
+
+Finish time: 8:07
+
+Actual time needed to complete: 20 mins

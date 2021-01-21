@@ -25,11 +25,6 @@ app.get('/location', (request, response) => {
     return;
   }
 
-  // const theDataArrayFromTheLocationJson = require('./data/location.json');
-  // const theDataObjectFromJson = theDataArrayFromTheLocationJson[0];
-
-
-
   const searchedCity = request.query.city;
   const key = process.env.GEOCODE_API_KEY;
   const url = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${searchedCity}&format=json`;
@@ -52,22 +47,26 @@ app.get('/location', (request, response) => {
     });
 });
 
-// const newLocation = new Location(
-//   searchedCity,
-//   theDataObjectFromJson.display_name,
-//   theDataObjectFromJson.lat,
-//   theDataObjectFromJson.lon
-// );
-
-
 app.get('/weather', (request, response) => {
-  const theDataArrayFromTheWeatherJson = require('./data/weather.json');
-  const theDataObjectFromWeatherJson = theDataArrayFromTheWeatherJson.data;
-  const allWeather = theDataObjectFromWeatherJson.map((val) => {
-    return new Weather(val.weather.description, val.datetime);
-  });
-  response.send(allWeather);
+  const key = process.env.WEATHER_API_KEY;
+  const searchedCity = request.query.search_query;
+  const latitude = request.query.latitude;
+  const longitude = request.query.longitude;
+  const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchedCity}&key=${key}&days=8&lat=${latitude}&lon=${longitude}`;
+  superagent.get(url)
+    .then(result => {
+      const theDataObjectFromWeatherJson = result.body.data;
+      const allWeather = theDataObjectFromWeatherJson.map((val) => {
+        return new Weather(val.weather.description, val.datetime);
+      });
 
+      response.send(allWeather);
+
+    })
+    .catch(error => {
+      response.status(500).send('weather failed to load');
+      console.log(error.message);
+    });
 });
 
 //start server
