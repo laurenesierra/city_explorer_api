@@ -135,3 +135,14 @@ Start time: 6:00
 Finish time: 8:00
 
 Actual time needed to complete: 2 hours
+
+## Number and name of feature: #1 Movies
+
+Estimate of time needed to complete: 30
+
+Start time: 9:00
+
+
+Finish time: 9:30
+
+Actual time needed to complete: 30

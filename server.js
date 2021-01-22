@@ -100,6 +100,16 @@ app.get('/parks', (request, response) => {
     });
 });
 
+app.get('/movies', (request, response) => {
+  const key = process.env.MOVIE_API_KEY;
+  const searchedCity = request.query.search_query;
+  const url = `https://api.themoviedb.org/3/movie/550?api_key=${key}&language=en-US&query=&${searchedCity}`;
+  superagent.get(url)
+    .then(result => {
+      console.log(result.body);
+    });
+});
+
 //start server
 client.connect()
   .then(() => {
@@ -131,4 +141,14 @@ function Park(obj) {
   this.fee = obj.entranceFees[0].cost;
   this.description = obj.description;
   this.url = obj.url;
+}
+
+function Movie(obj) {
+  this.title = obj.original_title;
+  this.overview = obj.overview;
+  this.average_votes = obj.vote_average;
+  this.total_votes = obj.vote_count;
+  this.image_url = `https://image.tmdb.org/t/p/w500/${obj.poster_path}`;
+  this.popularity = obj.popularity;
+  this.released_on = obj.release_date;
 }
