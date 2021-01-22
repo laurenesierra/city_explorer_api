@@ -4,56 +4,58 @@
 const express = require('express');
 
 const cors = require('cors');
-const { response } = require('express');
+// const { response } = require('express');
 
 require('dotenv').config();
 const superagent = require('superagent');
+
+const pg = require('pg');
 
 
 // app set up
 const app = express();
 
 app.use(cors());
-// const DATABASE_URL = process.env.DATABASE_URL;
-// const client = new pg.Client(DATABASE_URL);
-// client.on('error, (error') => console.log(error));
+const DATABASE_URL = process.env.DATABASE_URL;
+const client = new pg.Client(DATABASE_URL);
+client.on('error', (error) => console.log(error));
 
 //other global variables
 const PORT = process.env.PORT || 3001;
 
 //routes
 app.get('/location', (request, response) => {
-  // const sqlQuery = "SELECT * FROM location";
-  // client.query(sqlQuery)
-  //   .then(result => {
-  //     console.log(result.Pineapple.Rows);
-  //     response.send(result.Pineapple, rows)
-  //   });
-
-  if (request.query.city === '') {
-    response.status(500).send('Please enter a valid city...');
-    return;
-  }
-
+  const sqlQuery = 'SELECT * FROM location WHERE search_query=$1';
   const searchedCity = request.query.city;
   const key = process.env.GEOCODE_API_KEY;
-  const url = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${searchedCity}&format=json`;
-  superagent.get(url)
+  const sqlArray = [searchedCity];
+  client.query(sqlQuery, sqlArray)
     .then(result => {
-      // console.log(result.body[0]);
-      const theDataObjectFromJson = result.body[0];
-      const newLocation = new Location(
-        searchedCity,
-        theDataObjectFromJson.display_name,
-        theDataObjectFromJson.lat,
-        theDataObjectFromJson.lon
-      );
-      console.log(newLocation);
-      response.send(newLocation);
-    })
-    .catch(error => {
-      response.status(500).send('locationiq failed');
-      console.log(error.message);
+      // console.log('!!!!!', result.rows);
+      if (result.rows.length !== 0) {
+        console.log('in the database');
+        response.send(result.rows[0]);
+      } else {
+        if (request.query.city === '') {
+          response.status(500).send('Please enter a valid city...');
+          return;
+        }
+        const url = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${searchedCity}&format=json`;
+        superagent.get(url)
+          .then(result => {
+            const theDataObjectFromJson = result.body[0];
+            const newLocation = new Location(searchedCity, theDataObjectFromJson);
+            const sqlQuery = 'INSERT INTO location (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4)';
+            console.log('string inside here', newLocation);
+            const sqlArray = [newLocation.search_query, newLocation.formatted_query, newLocation.latitude, newLocation.longitude];
+            client.query(sqlQuery, sqlArray);
+            response.send(newLocation);
+          })
+          .catch(error => {
+            response.status(500).send('locationiq failed');
+            console.log(error.message);
+          });
+      }
     });
 });
 
@@ -87,7 +89,7 @@ app.get('/parks', (request, response) => {
     .then(result => {
       const parkInfo = result.body.data.map(obj => {
         const newParkObject = new Park(obj);
-        console.log('thing', newParkObject);
+        // console.log('thing', newParkObject);
         return newParkObject;
       });
       response.send(parkInfo);
@@ -99,15 +101,23 @@ app.get('/parks', (request, response) => {
 });
 
 //start server
-app.listen(PORT, () => console.log(`we are up on port ${PORT}`));
+client.connect()
+  .then(() => {
+    app.listen(PORT, () => console.log(`we are up on port ${PORT}`));
+  }).catch(error => {
+    console.log('error', error);
+  });
+
+
+
 
 //helper functions
 
-function Location(search_query, formated_query, latitude, longitude) {
+function Location(search_query, obj) {
   this.search_query = search_query;
-  this.formated_query = formated_query;
-  this.latitude = latitude;
-  this.longitude = longitude;
+  this.formatted_query = obj.display_name;
+  this.latitude = obj.lat;
+  this.longitude = obj.lon;
 }
 
 function Weather(forecast, time) {

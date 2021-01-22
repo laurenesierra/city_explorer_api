@@ -22,6 +22,7 @@ As a user, I want to request current weather information so that I can learn mor
 
 - Chance Harmon
 - Glenn Clark
+- Paul O'brien
 
 
 ## Number and name of feature: #1 Repository Set Up
@@ -122,3 +123,15 @@ Start time: 9:05
 Finish time: 9:17
 
 Actual time needed to complete: 10 mins
+
+
+## Number and name of feature: #2 Server
+
+Estimate of time needed to complete: 30
+
+Start time: 6:00
+
+
+Finish time: 8:00
+
+Actual time needed to complete: 2 hours
