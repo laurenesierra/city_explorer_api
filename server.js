@@ -105,7 +105,7 @@ client.connect()
   .then(() => {
     app.listen(PORT, () => console.log(`we are up on port ${PORT}`));
   }).catch(error => {
-    console.log('error', error);
+    console.log('heeeey', error);
   });
 
 
